@@ -1,0 +1,26 @@
+{
+  "name": "tryout-lib100",
+  "version": "1.0.0",
+  "description": "A library",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bijujoseph/tryout-lib100.git"
+  },
+  "author": "biju.joseph@semanticbits.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bijujoseph/tryout-lib100/issues"
+  },
+  "homepage": "https://github.com/bijujoseph/tryout-lib100#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.2.0"
+  }
+}

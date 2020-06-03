@@ -28,7 +28,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1.1.0
         with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
           repository: bijujoseph/tryout-repo200
           event-type: lib-update-event
           client-payload: '{"github": ${{ toJson(github) }}}'

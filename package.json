@@ -1,6 +1,6 @@
 {
   "name": "@bijujoseph/tryout-lib100",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,7 @@
     "chai": "^4.2.0",
     "mocha": "^7.2.0"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }

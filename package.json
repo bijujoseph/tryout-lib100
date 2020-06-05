@@ -17,14 +17,17 @@
   },
   "homepage": "https://github.com/bijujoseph/tryout-lib100#readme",
   "dependencies": {
-    "lodash": "^4.17.15",
-    "qpp-measures-data": "1.45.0"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^7.2.0"
+    "mocha": "^7.2.0",
+    "qpp-measures-data": "1.45.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "peerDependencies": {
+    "qpp-measures-data": "1.45.0"
   }
 }

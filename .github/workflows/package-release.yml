@@ -69,4 +69,4 @@ jobs:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
           repository: bijujoseph/tryout-repo200
           event-type: lib-update-event
-          client-payload: '{"ref": "${{ github.ref }}", "private-package": "@bijujoseph/tryout-lib100", "public-package":"tryout-lib100" ,"tag_name": "${{ github.event.release.tag_name }}", "html_url": "${{github.event.release.html_url}}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "private_package": "@bijujoseph/tryout-lib100", "public_package":"tryout-lib100" ,"tag_name": "${{ github.event.release.tag_name }}", "html_url": "${{github.event.release.html_url}}"}'

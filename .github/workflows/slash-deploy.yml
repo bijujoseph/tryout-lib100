@@ -19,6 +19,9 @@ jobs:
         id: slashCommand
         with:
           script: |
+            console.log('Context', context);
+            console.log('Context Issue', context.issue);
+            console.log('Context Issue Body', context.issue.body);
             let ast = context.issue.body.trim().split();
             console.log("ast", ast);
             let labels = context.issue.labels.map(l => l.name);

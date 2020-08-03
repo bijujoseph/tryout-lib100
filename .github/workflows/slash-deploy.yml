@@ -19,12 +19,12 @@ jobs:
         id: slashCommand
         with:
           script: |
-            console.log('Context', context);
+            let issue = context.payload.issue;
             console.log('Context Issue', context.issue);
-            console.log('Context Issue Body', context.issue.body);
-            let ast = context.issue.body.trim().split();
+            console.log('Context Issue Body', issue.body);
+            let ast = issue.body.trim().split();
             console.log("ast", ast);
-            let labels = context.issue.labels.map(l => l.name);
+            let labels = issue.labels.map(l => l.name);
             console.log("labels >>>> ", labels);
             console.log("label contains deploy? ", labels.contains('deploy'));
             let isSlashDeploy = ast[0] == '/deploy';
@@ -35,6 +35,10 @@ jobs:
               let isRelease = (strategy === 'release' || strategy == 'tag');
               if (isRelease && location.indexOf('tags') < 0) location = 'tags/' + loaction;
               console.log(1, {env, strategy, location});
+
+              process.env['SLASH_ENV'] = env;
+              process.env['SLASH_STRATEGY'] = strategy;
+              process.env['SLASH_LOCATION'] = location;
               return ({env, strategy, location});
             }
             console.log(2, 'empty');
@@ -42,3 +46,9 @@ jobs:
 
       - name: Get result
         run: echo "${{steps.slashCommand.outputs.result}}"
+
+
+      - name: Printenv
+        run: |
+          echo "SLASH_STRATEGY=${SLASH_STRATEGY}"
+          printenv

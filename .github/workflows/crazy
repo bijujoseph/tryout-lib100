@@ -4,6 +4,8 @@ on:
   issues:
     types: [created]
 
+on: issue_comment
+
 jobs:
 
   slashdeploy:

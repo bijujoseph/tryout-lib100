@@ -38,6 +38,6 @@ jobs:
         run: echo "${{steps.slashCommand.outputs.result}}"
 
       - name: Get result strategy
-        run: echo "${{steps.slashCommand.outputs.result.strategy}}"
+        run: echo "${{toJson(steps.slashCommand.outputs.result).strategy}}"
 
 

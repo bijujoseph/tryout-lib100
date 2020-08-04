@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Debug Action
-        uses: hmarr/debug-action@v1.0.0
-
       - name: Parse slash command
         uses: actions/github-script@v2
         id: slashCommand
@@ -31,9 +28,9 @@ jobs:
               let location = ast[4];
               let isRelease = (strategy === 'release' || strategy == 'tag');
               if (isRelease && location.indexOf('tags') < 0) location = 'tags/' + loaction;
-              return ({env, strategy, location});
+              return JSON.parse({env, strategy, location});
             }
-            return {};
+            return "{}";
 
       - name: Get result
         run: echo "${{steps.slashCommand.outputs.result}}"

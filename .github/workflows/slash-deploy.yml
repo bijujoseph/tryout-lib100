@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Parse slash command
+      - name: Parse Slash Command
         uses: actions/github-script@v2
         id: slashCommand
         with:
@@ -20,15 +20,18 @@ jobs:
             let issue = context.payload.issue;
             let ast = issue.body.trim().split(' ');
             let labels = issue.labels.map(l => l.name);
-            let isSlashDeploy = ast[0] == '/deploy' && labels.indexOf('deploy') > -1;
+            let isSlashDeploy = ast[0] == '/deploy' && labels.indexOf('SE_QA_DEPLOY') > -1;
             if (isSlashDeploy) {
-              core.exportVariable('SLASH_DEPLOY_ENV', ast[2]);
-              core.exportVariable('SLASH_DEPLOY_STRATEGY', ast[3]);
-              core.exportVariable('SLASH_DEPLOY_BRANCH', ast[4]);
-              core.debug(`env: ${ast[2]}, strategy: ${ast[3]}, branch: ${ast[4]}`);
+              let env = ast[2];
+              let strategy = ast[3];
+              let branch = strategy == ('release' ? `tags/${ast[4]}`: ast[4]);
+              core.exportVariable('SLASH_DEPLOY_ENV', env);
+              core.exportVariable('SLASH_DEPLOY_STRATEGY', strategy);
+              core.exportVariable('SLASH_DEPLOY_BRANCH', branch);
+              console.log(`env: ${env}, strategy: ${strategy}, branch: ${branch}`);
             }
             core.exportVariable('SLASH_DEPLOY', isSlashDeploy);
-            core.debug(`isSlashDeploy: ${isSlashDeploy}`);
+            console.log(`isSlashDeploy: ${isSlashDeploy}`);
 
       - name: Get result
         run: |
@@ -47,3 +50,12 @@ jobs:
         if: env.SLASH_DEPLOY == 'false'
         run: |
           echo $SLASH_DEPLOY_STRATEGY
+
+      - name: Checkout Codebase
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.SLASH_DEPLOY_BRANCH }}
+
+      - name: Show Cat
+        run: |
+          cat package.json

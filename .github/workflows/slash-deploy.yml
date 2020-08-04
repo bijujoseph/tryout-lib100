@@ -54,8 +54,11 @@ jobs:
 
       - name: Checkout Codebase
         uses: actions/checkout@v2
-        with:
-          ref: ${{ env.SLASH_DEPLOY_BRANCH }}
+
+      - name: Change Ref
+        run: |
+          git fetch --all --tags
+          git checkout $SLASH_DEPLOY_BRANCH
 
       - name: Show Cat
         run: |

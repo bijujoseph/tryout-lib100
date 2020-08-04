@@ -20,22 +20,20 @@ jobs:
             let issue = context.payload.issue;
             let ast = issue.body.trim().split(' ');
             let labels = issue.labels.map(l => l.name);
-            console.log("labels >>>> ", labels);
             let isSlashDeploy = ast[0] == '/deploy' && labels.indexOf('deploy') > -1;
             if (isSlashDeploy) {
-              let env = ast[2];
-              let strategy = ast[3];
-              let location = ast[4];
-              let isRelease = (strategy === 'release' || strategy == 'tag');
-              if (isRelease && location.indexOf('tags') < 0) location = 'tags/' + loaction;
-              return JSON.stringify({env, strategy, location});
+              core.exportVariable('SLASH_DEPLOY_ENV', ast[2]);
+              core.exportVariable('SLASH_DEPLOY_STRATEGY', ast[3]);
+              core.exportVariable('SLASH_DEPLOY_BRANCH', ast[4]);
+              core.debug(`env: ${ast[2]}, strategy: ${ast[3]}, branch: ${ast[4]}`);
             }
-            return "{}";
+            core.exportVariable('SLASH_DEPLOY', isSlashDeploy);
+            core.debug(`isSlashDeploy: ${isSlashDeploy}`);
 
       - name: Get result
-        run: echo "${{steps.slashCommand.outputs.result}}"
-
-      - name: Get result strategy2
-        run: echo "${{toJson(steps.slashCommand.outputs.result).strategy}}"
-
+        run: |
+          echo $SLASH_DEPLOY
+          echo $SLASH_DEPLOY_ENV
+          echo $SLASH_DEPLOY_STRATEGY
+          echo $SLASH_DEPLOY_BRANCH
 

@@ -19,6 +19,7 @@ jobs:
           script: |
             let issue = context.payload.issue;
             let ast = issue.body.trim().split(' ');
+            console.log('body:', issue.body);
             let labels = issue.labels.map(l => l.name);
             let isSlashDeploy = ast[0] == '/deploy' && labels.indexOf('SE_QA_DEPLOY') > -1;
             if (isSlashDeploy) {

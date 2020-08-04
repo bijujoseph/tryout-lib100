@@ -18,6 +18,7 @@ jobs:
         uses: actions/github-script@v2
         id: slashCommand
         with:
+          result-encoding: string
           script: |
             let issue = context.payload.issue;
             let ast = issue.body.trim().split(' ');

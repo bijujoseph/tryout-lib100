@@ -25,7 +25,7 @@ jobs:
             if (isSlashDeploy) {
               let env = ast[2];
               let strategy = ast[3];
-              let branch = strategy == ('release' ? `tags/${ast[4]}`: ast[4]);
+              let branch = (strategy == 'release') ? `tags/${ast[4]}`: ast[4];
               core.exportVariable('SLASH_DEPLOY_ENV', env);
               core.exportVariable('SLASH_DEPLOY_STRATEGY', strategy);
               core.exportVariable('SLASH_DEPLOY_BRANCH', branch);
@@ -54,11 +54,13 @@ jobs:
 
       - name: Checkout Codebase
         uses: actions/checkout@v2
-
-      - name: Change Ref
-        run: |
-          git fetch --all --tags
-          git checkout $SLASH_DEPLOY_BRANCH
+        with:
+          ref: ${{ env.SLASH_DEPLOY_BRANCH }}
+#
+#      - name: Change Ref
+#        run: |
+#          git fetch --all --tags
+#          git checkout $SLASH_DEPLOY_BRANCH
 
       - name: Show Cat
         run: |

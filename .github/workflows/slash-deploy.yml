@@ -37,3 +37,13 @@ jobs:
           echo $SLASH_DEPLOY_STRATEGY
           echo $SLASH_DEPLOY_BRANCH
 
+
+      - name: Show
+        if: env.SLASH_DEPLOY == 'true'
+        run: |
+          echo $SLASH_DEPLOY
+
+      - name: Show2
+        if: env.SLASH_DEPLOY == 'false'
+        run: |
+          echo $SLASH_DEPLOY_STRATEGY

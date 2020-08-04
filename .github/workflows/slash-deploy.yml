@@ -28,7 +28,7 @@ jobs:
               let location = ast[4];
               let isRelease = (strategy === 'release' || strategy == 'tag');
               if (isRelease && location.indexOf('tags') < 0) location = 'tags/' + loaction;
-              return JSON.parse({env, strategy, location});
+              return JSON.stringify({env, strategy, location});
             }
             return "{}";
 

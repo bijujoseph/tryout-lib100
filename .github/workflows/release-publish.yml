@@ -21,7 +21,7 @@ jobs:
 
 
       - name: Create Backfill Pull Request
-        if: ${{ github.event.release.draft == false &&  github.event.release.prerelease == false && startsWith(github.event.release.target_commitish, 'release/')}}
+        if: ${{ github.event.release.draft == false && startsWith(github.event.release.target_commitish, 'release/')}}
         id: pr
         uses: peter-evans/create-pull-request@172ec762f8ac8e050062398456fccd30444f8f30 #v2
         with:

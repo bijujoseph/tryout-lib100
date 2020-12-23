@@ -1,0 +1,32 @@
+name: Back Merge
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+
+  build:
+    name: Backfill
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Print Debug Information
+        uses: hmarr/debug-action@master
+
+      - name: Checkout Updated Master Branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.tag_name }}
+#
+#      - name: Create Pull Request
+#        id: pr
+#        uses: peter-evans/create-pull-request@172ec762f8ac8e050062398456fccd30444f8f30 #v2
+#        with:
+#          token: ${{ secrets.GH_USER_TOKEN }}
+#          commit-message: Backfill master with release tag ${{ github.event.release.tag_name }}
+#          title: Backfill master -  ${{github.event.release.tag_name}}
+#          branch: backfill_${{ github.event.release.tag_name }}
+#          body: |
+#            Auto generated pull request to backfill `${{ github.event.release.tag_name }} into develop`.
+#

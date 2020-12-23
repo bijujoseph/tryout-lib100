@@ -1,3 +1,8 @@
+##
+## When the release page gets published, this workflow will ensure that a merge PR back to master branch
+#  gets created. The back fill branch is only created, when the base of branch used
+# for the release follow `release/xxxx` pattern
+##
 name: Back Merge
 
 on:
@@ -14,19 +19,17 @@ jobs:
       - name: Print Debug Information
         uses: hmarr/debug-action@master
 
-      - name: Checkout Updated Master Branch
-        uses: actions/checkout@v2
+
+      - name: Create Backfill Pull Request
+        if: ${{ github.event.release.draft == false &&  github.event.release.prerelease == false && startsWith(github.event.release.target_commitish, 'release/')}}
+        id: pr
+        uses: peter-evans/create-pull-request@172ec762f8ac8e050062398456fccd30444f8f30 #v2
         with:
-          ref: ${{ github.event.release.tag_name }}
-#
-#      - name: Create Pull Request
-#        id: pr
-#        uses: peter-evans/create-pull-request@172ec762f8ac8e050062398456fccd30444f8f30 #v2
-#        with:
-#          token: ${{ secrets.GH_USER_TOKEN }}
-#          commit-message: Backfill master with release tag ${{ github.event.release.tag_name }}
-#          title: Backfill master -  ${{github.event.release.tag_name}}
-#          branch: backfill_${{ github.event.release.tag_name }}
-#          body: |
-#            Auto generated pull request to backfill `${{ github.event.release.tag_name }} into develop`.
-#
+          token: ${{ secrets.GH_USER_TOKEN }}
+          commit-message: Backfill ${{ github.event.release.repository.default_branch }} with release tag ${{ github.event.release.tag_name }}
+          title: Backfill master -  ${{github.event.release.tag_name}}
+          branch: ${{ github.event.release.target_commitish }}
+          base: ${{ github.event.release.repository.default_branch}}
+          body: |
+            Auto generated pull request to backfill `${{ github.event.release.tag_name }} into ${{ github.event.release.repository.default_branch }}`.
+

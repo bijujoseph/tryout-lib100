@@ -19,6 +19,11 @@ jobs:
       - name: Print Debug Information
         uses: hmarr/debug-action@master
 
+      - name: Checkout Release Branch
+        if: ${{ github.event.release.draft == false && startsWith(github.event.release.target_commitish, 'release/')}}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.target_commitish }}
 
       - name: Create Backfill Pull Request
         if: ${{ github.event.release.draft == false && startsWith(github.event.release.target_commitish, 'release/')}}

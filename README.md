@@ -6,4 +6,4 @@ Bumping the release due to COVID-19
 Update release for me please
 Awesome changes
 readme test
-updates
+update to the files

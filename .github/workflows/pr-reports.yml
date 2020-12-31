@@ -41,16 +41,6 @@ jobs:
       - name: Print Folders
         run: ls -ltar
 
-      - name: Find PR Number
-        uses: jwalton/gh-find-current-pr@v1
-        id: findPr
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: PR Number
-        run: echo "Your PR is ${{steps.findPr.outputs.number}}"
-        if: success()
-
 
       # set the only_changed_files to true on PR based builds, otherwise show full coverage
       - name: Produce Coverage report
@@ -60,7 +50,6 @@ jobs:
           path: coverage/cobertura-coverage.xml
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           only_changed_files: ${{github.base_ref != null}}
-          pull_request_number: ${{ steps.findPr.outputs.number }}
           show_line: true
           show_branch: true
           minimum_coverage: 90

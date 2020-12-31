@@ -44,7 +44,7 @@ jobs:
         uses: 5monkeys/cobertura-action@b3d1f4899a5f2d30adc2a13ac2abcd9f72e1fe66 # pin@master
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
         with:
-          path: coverage/cobertura-coverage.xml
+          path: cobertura-coverage.xml
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           only_changed_files: ${{github.base_ref != null}}
           show_line: true

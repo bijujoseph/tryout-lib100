@@ -48,7 +48,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: PR Number
-        run: echo "Your PR is ${steps.findPr.outputs.number}"
+        run: echo "Your PR is ${{steps.findPr.outputs.number}}"
         if: success()
 
 

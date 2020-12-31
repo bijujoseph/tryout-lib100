@@ -1,0 +1,20 @@
+#
+# This workflow will run post build quality checks
+# and is invoked when the "Build - PR" workflow finishes.
+#
+name: Quality Checks
+
+on:
+  workflow_run:
+    workflows: ["Tryout Lib 100"]
+    types:
+      - completed
+
+jobs:
+  perform-quality-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Debug
+        uses: hmarr/debug-action@master
+

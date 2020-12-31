@@ -18,3 +18,35 @@ jobs:
       - name: Debug
         uses: hmarr/debug-action@master
 
+
+      - name: Print Folders
+        run: ls -ltar
+
+
+      - name: Download Artifacts
+        uses: dawidd6/action-download-artifact@891cccee4b25d3306cf5edafa174ddc1d969871f
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          commit: ${{ github.event.workflow_run.head_commit.id }}
+          name: coverage
+
+
+      - name: Print Folders
+        run: ls -ltar
+
+
+      - name: Print Coverage Folder
+        run: ls -ltar coverage
+
+      # set the only_changed_files to true on PR based builds, otherwise show full coverage
+      - name: Produce Coverage report
+        uses: 5monkeys/cobertura-action@b3d1f4899a5f2d30adc2a13ac2abcd9f72e1fe66 # pin@master
+        if: ${{ github.event.workflow_run.event == 'pull_request' }}
+        with:
+          path: coverage/cobertura-coverage.xml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          only_changed_files: ${{github.base_ref != null}}
+          show_line: true
+          show_branch: true
+          minimum_coverage: 90

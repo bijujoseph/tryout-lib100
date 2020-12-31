@@ -49,9 +49,8 @@ jobs:
 
       - name: PR Number
         run: echo "Your PR is ${steps.findPr.outputs.number}"
-          if: success() && steps.findPr.outputs.number
-          env:
-            PR: ${{ steps.findPr.outputs.number }}
+        if: success()
+
 
       # set the only_changed_files to true on PR based builds, otherwise show full coverage
       - name: Produce Coverage report

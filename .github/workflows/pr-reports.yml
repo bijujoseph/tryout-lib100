@@ -44,13 +44,13 @@ jobs:
       - name: Find PR Number
         uses: jwalton/gh-find-current-pr@v1
         id: findPr
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - run: echo "Your PR is ${PR}"
-          if: success() && steps.findPr.outputs.number
-          env:
-            PR: ${{ steps.findPr.outputs.pr }}
+        if: success() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
 
       # set the only_changed_files to true on PR based builds, otherwise show full coverage
       - name: Produce Coverage report

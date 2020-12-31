@@ -4,7 +4,7 @@
   "description": "A library",
   "main": "index.js",
   "scripts": {
-    "test": "mocha **/*.spec.js"
+    "test": "nyc --reporter=cobertura --reporter=html node_modules/.bin/mocha '**/*.spec.js'"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,20 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^7.2.0"
+    "mocha": "^7.2.0",
+    "nyc": "^15.0.0"
+  },
+  "nyc": {
+    "reporter": [
+      "text"
+    ],
+    "check-coverage": true,
+    "sourceMap": true,
+    "include": "src",
+    "require": [
+    ],
+    "extension": [
+      ".js"
+    ]
   }
 }

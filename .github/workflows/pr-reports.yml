@@ -22,6 +22,10 @@ jobs:
       - name: Print Folders
         run: ls -ltar
 
+      - name: Checkout Codebase
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@891cccee4b25d3306cf5edafa174ddc1d969871f
@@ -30,6 +34,7 @@ jobs:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           commit: ${{ github.event.workflow_run.head_commit.id }}
           name: coverage
+          path: coverage
 
 
       - name: Print Folders
@@ -40,7 +45,7 @@ jobs:
         uses: 5monkeys/cobertura-action@b3d1f4899a5f2d30adc2a13ac2abcd9f72e1fe66 # pin@master
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
         with:
-          path: cobertura-coverage.xml
+          path: coverage/cobertura-coverage.xml
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           only_changed_files: ${{github.base_ref != null}}
           pull_request_number: ${{ github.event.workflow_run.pull_requests[0].number}}

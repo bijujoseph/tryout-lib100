@@ -33,7 +33,7 @@ jobs:
           token: ${{ secrets.GH_USER_TOKEN }}
           commit-message: Backfill ${{ github.event.release.repository.default_branch }} with release tag ${{ github.event.release.tag_name }}
           title: Backfill master -  ${{github.event.release.tag_name}}
-          branch: ${{ github.event.release.target_commitish }}
+          branch: feature/merge_release_${{github.event.release.tag_name}}
           base: ${{ github.event.release.repository.default_branch}}
           body: |
             Auto generated pull request to backfill `${{ github.event.release.tag_name }} into ${{ github.event.release.repository.default_branch }}`.
